@@ -1,0 +1,8 @@
+.streamline-ultimate--award-medal-4 {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%2344e30a' stroke-width='1.2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M16.706 17.25a2.4 2.4 0 0 0-2.353-4.075a2.4 2.4 0 0 0-4.7 0A2.4 2.4 0 0 0 7.3 17.25a2.4 2.4 0 0 0 2.353 4.075a2.4 2.4 0 0 0 4.705 0a2.4 2.4 0 0 0 2.353-4.075z'/%3E%3Cpath d='M12 17.625a.375.375 0 0 1 0-.75m0 .75a.375.375 0 0 0 0-.75'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m12.84 11.4l3.782-2.7a1.5 1.5 0 0 0 .628-1.221V2.25a1.5 1.5 0 0 0-1.5-1.5h-7.5a1.5 1.5 0 0 0-1.5 1.5v5.228A1.5 1.5 0 0 0 7.378 8.7l3.785 2.7M12 .75v10.5'/%3E%3C/g%3E%3C/svg%3E");
+}
