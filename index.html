@@ -24,6 +24,9 @@
     .section-padding {
       padding: 4rem 1rem;
     }
+    
+    /* --- Responsive Navbar CSS --- */
+    /* Base styles (mobile-first) */
     .nav-bar {
       background-color: #000000;
       padding: 1rem;
@@ -36,34 +39,56 @@
       z-index: 1000;
       border-bottom: 2px solid #fff809;
     }
+    .nav-links {
+      display: none; /* Hide menu links by default on mobile */
+      flex-direction: column;
+      width: 100%;
+      text-align: center;
+    }
+    .nav-links.active {
+      display: flex; /* Show menu links when active */
+    }
     .nav-links a {
       color: #ffffff;
-      margin-left: 1.5rem;
+      padding: 0.5rem 0;
       text-decoration: none;
       font-size: 1rem;
+      border-top: 1px solid #333; /* Separator for mobile links */
+    }
+    .nav-links a:first-child {
+      border-top: none;
     }
     .nav-links a.green-text {
       color: #44e30a;
     }
-    @media (max-width: 768px) {
+    .menu-toggle {
+      display: block; /* Hamburger icon visible on mobile */
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 1.5rem;
+    }
+
+    /* Media query for tablets and desktops */
+    @media (min-width: 769px) {
       .nav-bar {
-        flex-direction: column;
-        text-align: center;
+        flex-direction: row;
+      }
+      .nav-links {
+        display: flex; /* Always show links on desktop */
+        flex-direction: row;
+        width: auto;
       }
       .nav-links a {
-        margin: 0.5rem 0;
-        font-size: 0.9rem;
+        margin-left: 1.5rem;
+        padding: 0;
+        border-top: none;
+      }
+      .menu-toggle {
+        display: none; /* Hide hamburger icon on desktop */
       }
     }
-    @media (max-width: 480px) {
-      .nav-bar {
-        padding: 0.5rem;
-      }
-      .nav-links a {
-        margin: 0.5rem 0;
-        font-size: 1rem;
-      }
-    }
+    /* --- End Navbar CSS --- */
+    
     .senior-fitness {
       background-color: #2c2c2c;
       padding: 2rem;
@@ -115,33 +140,37 @@
         padding: 0.5rem;
       }
     }
+
+    /* --- Responsive Photo Carousel CSS --- */
     .photo-carousel {
-      position: relative;
-      max-width: 400px;
-      height: 200px;
-      margin: 0 auto;
-      overflow: hidden;
+        position: relative;
+        max-width: 400px;
+        margin: 0 auto;
     }
-    .photo-carousel-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
+
+    .photo-grid {
+        display: grid;
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 5px;
+        padding: 5px;
+        background-color: #333;
     }
-    .photo-carousel-slide.active {
-      display: block;
-      opacity: 1;
+
+    .photo-grid img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1; /* Maintain a square aspect ratio */
+        object-fit: cover; /* Fill the container without distorting */
+        border-radius: 10px;
+        border: 2px solid #555;
     }
-    .photo-carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
+
+    @media (min-width: 769px) {
+        .photo-grid {
+            grid-template-columns: 1fr 1fr; /* Two columns on desktop */
+        }
     }
+
     .photo-carousel-dots {
       text-align: center;
       margin-top: 1rem;
@@ -158,30 +187,16 @@
     .photo-carousel-dot.active {
       background-color: #2ecc71;
     }
-    @media (max-width: 480px) {
-      .photo-carousel {
-        max-width: 300px;
-        height: 150px;
-      }
-      .photo-carousel-dot {
-        height: 6px;
-        width: 6px;
-      }
-    }
+    /* --- End Photo Carousel CSS --- */
+
     .testimonial-carousel {
       position: relative;
       max-width: 1000px;
-      min-height: 300px;
       margin: 0 auto;
-      overflow: hidden;
     }
     .testimonial-carousel-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
+      position: relative;
       width: 100%;
-      min-height: 400px;
-      max-height:fit-content;
       display: none;
     }
     .testimonial-carousel-slide.active {
@@ -469,13 +484,6 @@
       width: 32px;
       height: 32px;
       --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 24'%3E%3Cpath fill='%23000000' d='m8.606 11.366l2.16-7.008l4.619 10.497l1.022-3.546h11.12a10 10 0 0 0 .423-2.895q0-.63-.075-1.239l.005.049c-.281-2.127-1.432-6.101-6.094-7.014a10.5 10.5 0 0 0-1.948-.208h-.146a7.96 7.96 0 0 0-5.722 2.563l-.005.005A7.97 7.97 0 0 0 8.245.002h-.147Q7.051.02 6.071.222l.07-.012C2.797.934.289 3.754.048 7.2l-.001.024a10.5 10.5 0 0 0 .438 4.216l-.02-.075z'/%3E%3Cpath fill='%23000000' d='m17.647 12.955l-1.935 6.742l-4.674-10.619l-1.209 3.936H1.087C2.576 16.31 6.047 20.446 13.961 24c8.015-3.6 11.49-7.741 12.96-11.04z'/%3E%3C/svg%3E");
-      background-color: currentColor;
-      -webkit-mask-image: var(--svg);
-      mask-image: var(--svg);
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-size: 100% 100%;
-      mask-size: 100% 100%;
     }
     .lucide--dumbbell {
       display: inline-block;
@@ -549,14 +557,25 @@
     console.log("React script initializing...");
 
     function Nav() {
+      const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+      
+      const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+      };
+
       return (
         <nav className="nav-bar">
-          <div className="text-xl font-bold">Rob Falcone Personal Training</div>
-          <div className="nav-links">
-            <a href="#services">Services </a>
-            <a href="#about">Meet Rob </a>
-            <a href="#testimonials">Reviews </a>
-            <a href="#contact" className="green-text">  Book Now</a>
+          <div className="flex justify-between items-center w-full">
+            <div className="text-xl font-bold">Rob Falcone Personal Training</div>
+            <div className="menu-toggle" onClick={toggleMenu}>
+              ☰
+            </div>
+          </div>
+          <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+            <a href="#services">Services</a>
+            <a href="#about">Meet Rob</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#contact" className="green-text">Book Now</a>
           </div>
         </nav>
       );
@@ -688,6 +707,7 @@
     }
 
     function MeetRob() {
+      // Images provided by the user
       const images = [
         './Pic1.jpg',
         './Pic2.jpg',
@@ -695,14 +715,14 @@
         './Pic4.jpg',
         './Pic5.jpg'
       ];
+
       const [activeIndex, setActiveIndex] = React.useState(0);
       const [isResearchVisible, setIsResearchVisible] = React.useState(false);
 
       React.useEffect(() => {
         const interval = setInterval(() => {
           setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
-          console.log("Active Index:", activeIndex);
-        }, 10000); // Changed to 10 seconds
+        }, 10000);
         return () => clearInterval(interval);
       }, [images.length]);
 
@@ -716,7 +736,8 @@
 
       const getCurrentSet = () => {
         const set = [];
-        for (let i = 0; i < 2; i++) { // Changed to 2 columns
+        // Reverting to 2 across, as requested
+        for (let i = 0; i < 2; i++) {
           set.push(images[(activeIndex + i) % images.length]);
         }
         return set;
@@ -731,13 +752,13 @@
                 <p className="text-lg mb-6">Your dedicated partner in achieving optimal health and fitness</p>
                 <div className="photo-carousel">
                   <div className="photo-carousel-slide active">
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px', height: '100%' }}>
+                    <div className="photo-grid">
                       {getCurrentSet().map((image, idx) => (
                         <img
                           key={idx}
                           src={image}
                           alt={`Rob Falcone ${idx + 1}`}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          className="image-square"
                           onError={(e) => console.error(`Image load failed for ${image}`, e)}
                         />
                       ))}
@@ -803,7 +824,7 @@
                   <p></p>
                   <p>Weight training offers numerous benefits for older adults. Here are the main advantages:</p>
                   <ul>
-                    <br></br><li><strong>&#9654; Combats Muscle Loss & Boosts Metabolism:</strong> Research by <strong>Harvard Medical School</strong>, strength training is vital for keeping muscles strong and boosting metabolism, which naturally slows with age. It effectively fights sarcopenia (age-related muscle loss), leading to significant gains in muscle mass and strength.</li>
+                    <br></br><li><strong>&#9654; Combats Muscle Loss & Boosts Metabolism:</strong> Research by <strong>Harvard Medical School</strong>, shows strength training is vital for keeping muscles strong and boosting metabolism, which naturally slows with age. It effectively fights sarcopenia (age-related muscle loss), leading to significant gains in muscle mass and strength.</li>
                     <br></br><li><strong>&#9654; Improves Balance & Reduces Fall Risk:</strong> Enhanced muscle strength directly improves balance and neuromuscular function. This significantly cuts the risk of falls, which are a major cause of injury and disability among seniors.</li>
                     <br></br><li><strong>&#9654; Supports Brain Health:</strong> Evidence shows that resistance training can preserve and even improve cognitive functions. It helps protect against brain atrophy (shrinkage) in areas of the brain associated with memory and Alzheimer's disease.</li>
                     <br></br><li><strong>&#9654; Promotes Independence:</strong> By preserving muscle mass, improving physical function, and supporting brain health, weight training helps seniors maintain their independence and overall quality of life.</li>
@@ -854,8 +875,7 @@
       React.useEffect(() => {
         const interval = setInterval(() => {
           setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-          console.log("Active Testimonial Index:", activeIndex);
-        }, 12000); // Changed to 10 seconds
+        }, 12000);
         return () => clearInterval(interval);
       }, [testimonials.length]);
 
