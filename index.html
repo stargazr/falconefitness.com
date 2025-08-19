@@ -8,25 +8,32 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.24.0/babel.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- NEW: Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --color-green: #44e30a;
-      --color-yellow: #fff809;
+      /* REFINED: Slightly softer, more modern colors */
+      --color-green: #34d399; /* A slightly softer, modern green */
+      --color-yellow: #f59e0b; /* A richer, amber-like yellow */
     }
+    /* UPDATED: Body styles with new font and background */
     body {
-      background-color: #1a1a1a;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      padding-top: 80px;
+      background-color: #111827; /* A deep, modern navy-gray */
+      color: #e5e7eb; /* A soft off-white for better readability */
+      font-family: 'Inter', sans-serif; /* Modern font */
+      padding-top: 80px; /* Keep padding for the fixed nav */
     }
     .green-text { color: var(--color-green); }
     .yellow-text { color: var(--color-yellow); }
-    .section-padding { padding: 4rem 1rem; }
+    .section-padding { padding: 5rem 1.5rem; }
     
-    /* --- Responsive Navbar CSS --- */
+    /* --- Responsive Navbar CSS (with refinements) --- */
     .nav-bar {
-      background-color: #000000;
-      padding: 1rem;
+      background-color: rgba(17, 24, 39, 0.8); /* Semi-transparent background */
+      backdrop-filter: blur(10px); /* Frosted glass effect */
+      padding: 1rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -34,11 +41,9 @@
       top: 0;
       width: 100%;
       z-index: 1000;
-      border-bottom: 2px solid var(--color-yellow);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-      transition: top 0.3s ease-in-out;
+      border-bottom: 1px solid var(--color-yellow);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
-    .nav-bar.hidden { top: -80px; }
     .nav-links {
       display: none;
       flex-direction: column;
@@ -50,14 +55,15 @@
     }
     .nav-links.active {
       display: flex;
-      max-height: 200px;
+      max-height: 220px;
     }
     .nav-links a {
-      color: #ffffff;
-      padding: 0.5rem 0;
+      color: #e5e7eb;
+      padding: 0.75rem 0;
       text-decoration: none;
       font-size: 1rem;
-      border-top: 1px solid #333;
+      font-weight: 600;
+      border-top: 1px solid #374151;
       transition: color 0.3s, transform 0.3s;
     }
     .nav-links a:hover {
@@ -69,8 +75,8 @@
     .menu-toggle {
       display: block;
       cursor: pointer;
-      color: #ffffff;
-      font-size: 1.5rem;
+      color: #e5e7eb;
+      font-size: 1.75rem;
     }
     @media (min-width: 769px) {
       .nav-bar { flex-direction: row; }
@@ -81,7 +87,7 @@
         max-height: none;
       }
       .nav-links a {
-        margin-left: 1.5rem;
+        margin-left: 2rem;
         padding: 0;
         border-top: none;
       }
@@ -89,58 +95,63 @@
     }
     
     /* --- Component-Specific CSS --- */
-    .senior-fitness {
-      background-color: #2c2c2c;
-      padding: 2rem;
-      border-radius: 0.5rem;
-      color: #ffffff;
-    }
     .benefit-card {
-      background-color: #1e7e4a;
+      background-color: #1f2937;
       padding: 1rem;
-      border-radius: 0.5rem;
-      margin: 0.5rem;
+      border-radius: 0.75rem;
       text-align: center;
       font-size: 0.9rem;
+      border: 1px solid #374151;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s, border-color 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px; /* Ensure cards have a consistent height */
+      cursor: pointer; /* Add cursor pointer to indicate clickability */
+    }
+    .benefit-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--color-green);
     }
     .testimonial-card {
-      background-color: #2c2c2c;
-      padding: 1rem;
-      border-radius: 0.5rem;
+      background-color: #1f2937;
+      padding: 2rem;
+      border-radius: 0.75rem;
       margin-bottom: 1rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
-    .photo-carousel {
-      position: relative;
-      max-width: 400px;
-      margin: 0 auto;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      border-left: 4px solid var(--color-green);
     }
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 5px;
-      padding: 5px;
-      background-color: #333;
+      gap: 10px;
+      padding: 10px;
+      background-color: #1f2937;
+      border-radius: 10px;
     }
     .photo-grid img {
       width: 100%;
       height: auto;
       aspect-ratio: 1 / 1;
       object-fit: cover;
-      border-radius: 10px;
-      border: 2px solid #555;
+      border-radius: 8px;
+      border: 2px solid #374151;
     }
-    .photo-carousel-dots, .carousel-dots { text-align: center; margin-top: 1rem; }
-    .photo-carousel-dot, .carousel-dot {
-      height: 8px;
-      width: 8px;
-      background-color: #bbb;
+    .carousel-dot {
+      height: 10px;
+      width: 10px;
+      background-color: #4b5563;
       border-radius: 50%;
       display: inline-block;
-      margin: 0 4px;
+      margin: 0 5px;
       cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
     }
-    .photo-carousel-dot.active, .carousel-dot.active { background-color: #2ecc71; }
+    .carousel-dot.active { 
+        background-color: var(--color-green);
+        transform: scale(1.2);
+    }
     
     .testimonial-carousel-slide { display: none; }
     .testimonial-carousel-slide.active { display: block; }
@@ -152,132 +163,109 @@
       gap: 2rem;
       max-width: 1200px;
       margin: 0 auto;
-      background-color: #2c2c2c;
-      padding: 1.5rem;
+      background-color: #1f2937;
+      padding: 2rem;
       border-radius: 10px;
     }
-    .meet-content, .professional-background {
-        flex: 1;
-        min-width: 300px;
-    }
     .professional-background {
-      background-color: #333333;
+      background-color: #111827;
       padding: 1.5rem;
       border-radius: 5px;
       font-size: 0.9rem;
     }
-    .credentials-box {
-      border: 1px solid var(--color-green);
-      padding: 0.5rem;
-      border-radius: 5px;
-      margin-top: 1rem;
-    }
-    .credentials-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 1rem;
-    }
     .credential-card {
-      background-color: #333333;
-      padding: 0.5rem;
+      background-color: #374151;
+      padding: 0.75rem;
       border-radius: 0.5rem;
       text-align: center;
-      border: 2px solid var(--color-green);
+      border: 1px solid #4b5563;
       font-size: 0.8rem;
     }
     .research-content {
       display: none;
       margin-top: 1rem;
-      padding: 1rem;
-      background-color: #ffffff;
+      padding: 1.5rem;
+      background-color: #e5e7eb;
       border-radius: 0.5rem;
       text-align: left;
-      color: #000000;
+      color: #111827;
       font-size: 0.9rem;
     }
     .research-content.active { display: block; }
-    .research-content small { font-size: 0.7rem; color: #333; font-style: italic; }
     
     .star-rating {
-      color: #ffd700;
-      font-size: 1rem;
+      color: #f59e0b; /* Updated yellow */
+      font-size: 1.25rem;
       text-align: center;
-      margin-bottom: 0.5rem;
-    }
-    .training-boxes {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
     .training-box {
       flex: 1;
-      background-color: #c1e1c1;
-      padding: 1rem;
+      background-color: #1f2937;
+      padding: 1.5rem;
       border-radius: 0.5rem;
-      border: 2px solid var(--color-green);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--color-green);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       font-size: 1rem;
-      color: #000000;
+      color: #e5e7eb;
       display: flex;
       flex-direction: column;
       align-items: center;
       transition: transform 0.3s ease;
     }
     .training-box:hover { transform: translateY(-5px); }
-    .training-box strong { font-size: 1.1rem; }
     
     .contact-container {
-      background-color: #000000;
-      padding: 1.5rem;
-      border-radius: 0.5rem;
+      background-color: #1f2937;
+      padding: 2.5rem;
+      border-radius: 0.75rem;
       text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
-    .header-gradient {
-      background: linear-gradient(90deg, #1a1a1a 0%, #000000 100%);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
+    
+    /* UPDATED: Service box styling for dark theme */
     .service-box {
-      background-color: #ffffff;
-      padding: 1rem;
+      background-color: #1f2937;
+      padding: 2rem;
       text-align: center;
-      border-radius: 0.5rem;
-      min-height: 150px;
+      border-radius: 0.75rem;
+      min-height: 180px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border: 1px solid #374151;
+      transition: transform 0.3s, border-color 0.3s;
     }
-    .error-message {
-      color: #ff0000;
-      text-align: center;
-      padding: 1rem;
-    }
-    .fallback-content {
-      text-align: center;
-      padding: 2rem;
+    .service-box:hover {
+        transform: translateY(-10px);
+        border-color: var(--color-green);
     }
     /* --- Call to Action Button Style --- */
     .cta-button {
       background-color: var(--color-green);
-      color: #000000;
-      font-weight: 600;
-      padding: 0.75rem 1.5rem;
+      color: #111827;
+      font-weight: 700; /* Bolder */
+      padding: 1rem 2rem;
       border-radius: 0.5rem;
-      transition: background-color 0.3s, color 0.3s, transform 0.3s;
-      border: 2px solid var(--color-yellow);
+      transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+      border: 2px solid var(--color-green);
       display: inline-block;
       text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
     }
     .cta-button:hover {
       background-color: var(--color-yellow);
-      color: #000000;
-      transform: scale(1.05);
+      border-color: var(--color-yellow);
+      color: #111827;
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
     }
 
-    /* --- NEW: Full-Screen Contact Section --- */
+    /* --- Full-Screen Contact Section --- */
     #contact {
         min-height: 90vh;
         display: flex;
@@ -286,40 +274,60 @@
         align-items: center;
         padding: 2rem 1rem;
     }
+    
+    /* --- NEW: FAQ Section Styling --- */
+    .faq-item {
+        background-color: #1f2937;
+        border: 1px solid #374151;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .faq-question {
+        padding: 1rem 1.5rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+    }
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+        padding: 0 1.5rem;
+        color: #9ca3af;
+    }
+    .faq-answer p {
+        padding-bottom: 1.5rem;
+    }
+    .faq-item.active .faq-answer {
+        max-height: 200px; /* Adjust as needed */
+    }
 
-    /* --- Responsive Adjustments --- */
-    @media (max-width: 768px) {
-      .benefit-card { width: calc(50% - 1rem); font-size: 0.8rem; }
-      .meet-container { flex-direction: column; }
-      .professional-background { font-size: 0.8rem; }
-      .credentials-grid { grid-template-columns: repeat(2, 1fr); }
-      .training-boxes { flex-direction: column; }
-      .contact-container { padding: 1rem; }
+    /* --- NEW: Animation Styling --- */
+    .fade-in-section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-    @media (max-width: 480px) {
-      .benefit-card { width: 100%; font-size: 0.7rem; }
-      .testimonial-card { font-size: 0.7rem; padding: 0.5rem; }
-      .credentials-grid { grid-template-columns: 1fr; }
-      .credential-card { font-size: 0.7rem; }
-      .research-content { font-size: 0.7rem; }
-      .training-box { font-size: 0.8rem; }
-      .contact-container h2 { font-size: 1.5rem; }
+    .fade-in-section.is-visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 
-    /* --- SVG Icon Classes --- */
-    .ph--house-line { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='M240 208h-16v-72l2.34 2.34a8 8 0 0 0 11.32-11.31L139.31 28.69a16 16 0 0 0-22.62 0L18.34 127a8 8 0 0 0 11.32 11.31L32 136v72H16a8 8 0 0 0 0 16h224a8 8 0 0 0 0-16M48 120l80-80l80 80v88h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48Zm96 88h-32v-48h32Z'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
-    .hugeicons--gymnastic-rings { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M16.5 22a5.5 5.5 0 1 0 0-11a5.5 5.5 0 0 0 0 11m0-11V2M12 9.303A5.51 5.51 0 0 0 7.513 7A5.507 5.507 0 0 0 2 12.5c0 3.244 2.928 5.829 6.14 5.466M7.5 7V2'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
-    .hugeicons--body-part-muscle { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M2.017 20.305c1.13 1.614 6.042 2.882 8.362-.14c2.51 1.2 6.65.828 10.02-1.052c.468-.261.912-.591 1.183-1.054c.613-1.045.628-2.495-.49-4.634c-1.865-4.655-5.218-8.74-6.572-10.383c-.278-.254-2.052-.614-3.133-.96c-.478-.147-1.367-.246-2.431 1.156c-.505.665-2.796 2.297.111 3.395c.45.115.782.326 2.836-.05c.268-.046.936 0 1.407.827l.983 1.406a.96.96 0 0 1 .17.44c.172 1.5.166 3.376 1.002 4.326c-1.291-.933-4.664-2.042-7.206 1.113M2.001 12.94a6.714 6.714 0 0 1 8.416-.419'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
-    .streamline-ultimate--award-medal-4 { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%2344e30a' stroke-width='1.2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M16.706 17.25a2.4 2.4 0 0 0-2.353-4.075a2.4 2.4 0 0 0-4.7 0A2.4 2.4 0 0 0 7.3 17.25a2.4 2.4 0 0 0 2.353 4.075a2.4 2.4 0 0 0 4.705 0a2.4 2.4 0 0 0 2.353-4.075z'/%3E%3Cpath d='M12 17.625a.375.375 0 0 1 0-.75m0 .75a.375.375 0 0 0 0-.75'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m12.84 11.4l3.782-2.7a1.5 1.5 0 0 0 .628-1.221V2.25a1.5 1.5 0 0 0-1.5-1.5h-7.5a1.5 1.5 0 0 0-1.5 1.5v5.228A1.5 1.5 0 0 0 7.378 8.7l3.785 2.7M12 .75v10.5'/%3E%3C/g%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
-    .ion--checkmark-done { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='none' stroke='%2344e30a' stroke-linecap='round' stroke-linejoin='round' stroke-width='32' d='M464 128L240 384l-96-96m0 96l-96-96m320-160L232 284'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
-    .solar--heart-pulse-broken { 
-      display: inline-block; 
-      width: 32px; 
-      height: 32px; 
-      background-repeat: no-repeat; 
-      background-size: 100% 100%; 
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-width='0.8' d='M18 12h-.801c-.83 0-1.245 0-1.589.195c-.344.194-.557.55-.984 1.261l-.03.052c-.398.663-.597.994-.886.989s-.476-.344-.849-1.022l-1.687-3.067c-.347-.632-.52-.948-.798-.963c-.277-.015-.484.28-.897.87l-.283.405c-.44.627-.659.94-.984 1.11c-.326.17-.709.17-1.474.17H6'/%3E%3Cpath fill='%23000' d='m8.962 18.91l.464-.588zM12 5.5l-.54.52a.75.75 0 0 0 1.08 0zm3.038 13.41l.465.59zM12 20.487v-.75zm-9.343-7.09a.75.75 0 0 0 1.273-.792zm3.873 2.376a.75.75 0 0 0-1.06 1.062zM2.75 9.137c0-2.803 1.257-4.542 2.83-5.14c1.575-.6 3.771-.167 5.88 2.024l1.08-1.04C10.15 2.496 7.345 1.72 5.046 2.595C2.743 3.471 1.25 5.888 1.25 9.137zM15.503 19.5c1.492-1.177 3.28-2.754 4.703-4.516c1.407-1.743 2.544-3.775 2.544-5.847h-1.5c0 1.551-.872 3.246-2.211 4.905c-1.323 1.639-3.015 3.137-4.465 4.28zM22.75 9.137c0-3.25-1.493-5.666-3.796-6.542c-2.299-.874-5.103-.1-7.494 2.386l1.08 1.04c2.109-2.19 4.305-2.623 5.88-2.024c1.573.598 2.83 2.337 2.83 5.14zM8.497 19.5c1.275 1.004 2.153 1.736 3.503 1.736v-1.5c-.73 0-1.184-.319-2.574-1.414zm6.077-1.178c-1.39 1.095-1.843 1.414-2.574 1.414v1.5c1.35 0 2.228-.732 3.503-1.736zM3.93 12.604c-.746-1.199-1.18-2.373-1.18-3.467h-1.5c0 1.48.58 2.932 1.407 4.26zm5.496 5.718a34 34 0 0 1-2.896-2.55l-1.06 1.062A35 35 0 0 0 8.497 19.5z'/%3E%3C/g%3E%3C/svg%3E"); 
+    /* NEW: Scroll margin for nav offset */
+    section[id] {
+        scroll-margin-top: 80px;
     }
+
+
+    /* --- SVG Icon Classes (Reverted to Original) --- */
+    .ph--house-line { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%2334d399' d='M240 208h-16v-72l2.34 2.34a8 8 0 0 0 11.32-11.31L139.31 28.69a16 16 0 0 0-22.62 0L18.34 127a8 8 0 0 0 11.32 11.31L32 136v72H16a8 8 0 0 0 0 16h224a8 8 0 0 0 0-16M48 120l80-80l80 80v88h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48Zm96 88h-32v-48h32Z'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
+    .hugeicons--gymnastic-rings { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%2334d399' stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M16.5 22a5.5 5.5 0 1 0 0-11a5.5 5.5 0 0 0 0 11m0-11V2M12 9.303A5.51 5.51 0 0 0 7.513 7A5.507 5.507 0 0 0 2 12.5c0 3.244 2.928 5.829 6.14 5.466M7.5 7V2'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
+    .hugeicons--body-part-muscle { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%2334d399' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M2.017 20.305c1.13 1.614 6.042 2.882 8.362-.14c2.51 1.2 6.65.828 10.02-1.052c.468-.261.912-.591 1.183-1.054c.613-1.045.628-2.495-.49-4.634c-1.865-4.655-5.218-8.74-6.572-10.383c-.278-.254-2.052-.614-3.133-.96c-.478-.147-1.367-.246-2.431 1.156c-.505.665-2.796 2.297.111 3.395c.45.115.782.326 2.836-.05c.268-.046.936 0 1.407.827l.983 1.406a.96.96 0 0 1 .17.44c.172 1.5.166 3.376 1.002 4.326c-1.291-.933-4.664-2.042-7.206 1.113M2.001 12.94a6.714 6.714 0 0 1 8.416-.419'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
+    .streamline-ultimate--award-medal-4 { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%2334d399' stroke-width='1.2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M16.706 17.25a2.4 2.4 0 0 0-2.353-4.075a2.4 2.4 0 0 0-4.7 0A2.4 2.4 0 0 0 7.3 17.25a2.4 2.4 0 0 0 2.353 4.075a2.4 2.4 0 0 0 4.705 0a2.4 2.4 0 0 0 2.353-4.075z'/%3E%3Cpath d='M12 17.625a.375.375 0 0 1 0-.75m0 .75a.375.375 0 0 0 0-.75'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m12.84 11.4l3.782-2.7a1.5 1.5 0 0 0 .628-1.221V2.25a1.5 1.5 0 0 0-1.5-1.5h-7.5a1.5 1.5 0 0 0-1.5 1.5v5.228A1.5 1.5 0 0 0 7.378 8.7l3.785 2.7M12 .75v10.5'/%3E%3C/g%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
+    .ion--checkmark-done { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='none' stroke='%2334d399' stroke-linecap='round' stroke-linejoin='round' stroke-width='32' d='M464 128L240 384l-96-96m0 96l-96-96m320-160L232 284'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
+    .solar--heart-pulse-broken { display: inline-block; width: 32px; height: 32px; background-repeat: no-repeat; background-size: 100% 100%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath stroke='%2334d399' stroke-linecap='round' stroke-width='0.8' d='M18 12h-.801c-.83 0-1.245 0-1.589.195c-.344.194-.557.55-.984 1.261l-.03.052c-.398.663-.597.994-.886.989s-.476-.344-.849-1.022l-1.687-3.067c-.347-.632-.52-.948-.798-.963c-.277-.015-.484.28-.897.87l-.283.405c-.44.627-.659.94-.984 1.11c-.326.17-.709.17-1.474.17H6'/%3E%3Cpath fill='%2334d399' d='m8.962 18.91l.464-.588zM12 5.5l-.54.52a.75.75 0 0 0 1.08 0zm3.038 13.41l.465.59zM12 20.487v-.75zm-9.343-7.09a.75.75 0 0 0 1.273-.792zm3.873 2.376a.75.75 0 0 0-1.06 1.062zM2.75 9.137c0-2.803 1.257-4.542 2.83-5.14c1.575-.6 3.771-.167 5.88 2.024l1.08-1.04C10.15 2.496 7.345 1.72 5.046 2.595C2.743 3.471 1.25 5.888 1.25 9.137zM15.503 19.5c1.492-1.177 3.28-2.754 4.703-4.516c1.407-1.743 2.544-3.775 2.544-5.847h-1.5c0 1.551-.872 3.246-2.211 4.905c-1.323 1.639-3.015 3.137-4.465 4.28zM22.75 9.137c0-3.25-1.493-5.666-3.796-6.542c-2.299-.874-5.103-.1-7.494 2.386l1.08 1.04c2.109-2.19 4.305-2.623 5.88-2.024c1.573.598 2.83 2.337 2.83 5.14zM8.497 19.5c1.275 1.004 2.153 1.736 3.503 1.736v-1.5c-.73 0-1.184-.319-2.574-1.414zm6.077-1.178c-1.39 1.095-1.843 1.414-2.574 1.414v1.5c1.35 0 2.228-.732 3.503-1.736zM3.93 12.604c-.746-1.199-1.18-2.373-1.18-3.467h-1.5c0 1.48.58 2.932 1.407 4.26zm5.496 5.718a34 34 0 0 1-2.896-2.55l-1.06 1.062A35 35 0 0 0 8.497 19.5z'/%3E%3C/g%3E%3C/svg%3E"); }
     
     /* Icons using mask-image for color control */
     .mdi--award, .ph--target, .lucide--dumbbell {
@@ -334,53 +342,33 @@
       -webkit-mask-size: 100% 100%;
       mask-size: 100% 100%;
     }
-    .mdi--award { --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 10a3.04 3.04 0 0 1 3-3a3.04 3.04 0 0 1 3 3a3.04 3.04 0 0 1-3 3a3.04 3.04 0 0 1-3-3m3 9l4 1v-3.08A7.54 7.54 0 0 1 12 18a7.54 7.54 0 0 1-4-1.08V20m4-16a5.78 5.78 0 0 0-4.24 1.74A5.78 5.78 0 0 0 6 10a5.78 5.78 0 0 0 1.76 4.23A5.78 5.78 0 0 0 12 16a5.78 5.78 0 0 0 4.24-1.77A5.78 5.78 0 0 0 18 10a5.78 5.78 0 0 0-1.76-4.26A5.78 5.78 0 0 0 12 4m8 6a8 8 0 0 1-.57 2.8A7.8 7.8 0 0 1 18 15.28V23l-6-2l-6 2v-7.72A7.9 7.9 0 0 1 4 10a7.68 7.68 0 0 1 2.33-5.64A7.73 7.73 0 0 1 12 2a7.73 7.73 0 0 1 5.67 2.36A7.68 7.68 0 0 1 20 10'/%3E%3C/svg%3E"); }
-    .lucide--dumbbell { --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829zM2.5 21.5l1.4-1.4M20.1 3.9l1.4-1.4M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829zM9.6 14.4l4.8-4.8'/%3E%3C/svg%3E"); }
+    .mdi--award { --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 10a3.04 3.04 0 0 1 3-3a3.04 3.04 0 0 1 3 3a3.04 3.04 0 0 1-3-3a3.04 3.04 0 0 1-3-3m3 9l4 1v-3.08A7.54 7.54 0 0 1 12 18a7.54 7.54 0 0 1-4-1.08V20m4-16a5.78 5.78 0 0 0-4.24 1.74A5.78 5.78 0 0 0 6 10a5.78 5.78 0 0 0 1.76 4.23A5.78 5.78 0 0 0 12 16a5.78 5.78 0 0 0 4.24-1.77A5.78 5.78 0 0 0 18 10a5.78 5.78 0 0 0-1.76-4.26A5.78 5.78 0 0 0 12 4m8 6a8 8 0 0 1-.57 2.8A7.8 7.8 0 0 1 18 15.28V23l-6-2l-6 2v-7.72A7.9 7.9 0 0 1 4 10a7.68 7.68 0 0 1 2.33-5.64A7.73 7.73 0 0 1 12 2a7.73 7.73 0 0 1 5.67 2.36A7.68 7.68 0 0 1 20 10'/%3E%3C/svg%3E"); }
+    .lucide--dumbbell { --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%2334d399' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829zM2.5 21.5l1.4-1.4M20.1 3.9l1.4-1.4M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829zM9.6 14.4l4.8-4.8'/%3E%3C/svg%3E"); }
     .ph--target { --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='M221.87 83.16A104.1 104.1 0 1 1 195.67 49l22.67-22.68a8 8 0 0 1 11.32 11.32l-96 96a8 8 0 0 1-11.32-11.32l27.72-27.72a40 40 0 1 0 17.87 31.09a8 8 0 1 1 16-.9a56 56 0 1 1-22.38-41.65l22.75-22.75a87.88 87.88 0 1 0 23.13 29.67a8 8 0 0 1 14.44-6.9'/%3E%3C/svg%3E"); }
+
   </style>
 </head>
 <body>
-  <div id="root">
-    <div class="fallback-content">
-      <h1>Rob Falcone Personal Training</h1>
-      <p>If the dynamic content doesn't load, ensure JavaScript is enabled and check the console (F12).</p>
-    </div>
-  </div>
+  <div id="root"></div>
   <script type="text/babel">
     function Nav() {
       const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-      const [visible, setVisible] = React.useState(true);
       
-      React.useEffect(() => {
-        let prevScrollPos = window.scrollY;
-
-        const handleScroll = () => {
-          const currentScrollPos = window.scrollY;
-          setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
-          prevScrollPos = currentScrollPos;
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-      }, []); // Empty dependency array ensures this runs only once on mount.
-
-      const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-      };
+      const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
       return (
-        <nav className={`nav-bar ${visible ? '' : 'hidden'}`}>
+        <nav className="nav-bar">
           <div className="flex justify-between items-center w-full">
-            <div className="text-xl font-bold">Rob Falcone Personal Training</div>
-            <div className="menu-toggle" onClick={toggleMenu}>
-              ☰
-            </div>
+            <div className="text-xl font-bold">Rob Falcone PT</div>
+            <div className="menu-toggle" onClick={toggleMenu}>☰</div>
           </div>
           <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-            <a href="#services">Services</a>
-            <a href="#about">Meet Rob</a>
-            <a href="#testimonials">Reviews</a>
-            <a href="#contact" className="green-text">Book Now</a>
+            <a href="#services" onClick={toggleMenu}>Services</a>
+            <a href="#about" onClick={toggleMenu}>Meet Rob</a>
+            <a href="#philosophy" onClick={toggleMenu}>Philosophy</a>
+            <a href="#faq" onClick={toggleMenu}>FAQ</a>
+            <a href="#testimonials" onClick={toggleMenu}>Reviews</a>
+            <a href="#contact" className="green-text" onClick={toggleMenu}>Book Now</a>
           </div>
         </nav>
       );
@@ -388,23 +376,22 @@
 
     function Header() {
       return (
-        <header className="header-gradient text-white py-6 relative">
-          <div className="container mx-auto text-center flex flex-col items-center">
-            <h1 className="text-4xl md:text-5xl font-bold">
-              <span style={{ color: 'var(--color-green)' }}>Rob Falcone</span>
+        <header className="text-white relative min-h-screen flex items-center justify-center overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-900 to-transparent z-0"></div>
+          <div className="container mx-auto text-center flex flex-col items-center relative z-10 px-6 py-20">
+            <h1 className="text-4xl md:text-6xl font-bold">
+              <span className="green-text">Rob Falcone</span>
               <br />
-              <span className="text-white" style={{ fontSize: '1.5rem', lineHeight: '1.5' }}>Personal Training</span>
-              <br />
-              <span className="text-2xl md:text-3xl" style={{ color: 'var(--color-yellow)' }}>
-                "It's never too soon... but one day it will be too late."
-              </span>
+              <span className="text-white text-3xl md:text-4xl block mt-2">Personal Training</span>
             </h1>
-            <p className="mt-4 text-lg md:text-xl max-w-2xl text-gray-300">
-              Professional personal training with over 20 years of experience. Specializing in helping seniors maintain strength, mobility, and vitality.
+             <p className="mt-6 text-2xl md:text-3xl yellow-text">
+                <i>"It's never too soon...<br/>but one day it will be too late."</i>
+              </p>
+            <p className="mt-6 text-lg md:text-xl max-w-3xl text-gray-300">
+              Professional personal trainer, for all ages and abilities, with over 20 years of experience - offering specialized programs for seniors to maintain strength, mobility, and vitality.
             </p>
-            {/* --- Using new CTA button class --- */}
-            <a href="#contact" className="mt-6 cta-button">
-              Get Started Today! Book Your FREE Session Now!
+            <a href="#contact" className="mt-8 cta-button">
+              Book Your FREE Session
             </a>
           </div>
         </header>
@@ -413,28 +400,27 @@
 
     function Services() {
       return (
-        <section id="services" className="section-padding" style={{ backgroundColor: '#e0e0e0' }}>
+        <section id="services" className="section-padding bg-gray-900 fade-in-section">
           <div className="container mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#000000' }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 green-text">
               Professional Training Services
             </h2>
-            <p className="text-lg mb-8 text-black">Comprehensive fitness solutions tailored to your unique goals and needs.</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <p className="text-lg mb-10 text-gray-400">Comprehensive fitness solutions tailored to your unique goals and needs.</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="service-box">
-                <span className="lucide--dumbbell" style={{ color: '#000000' }}></span>
-                <h3 className="text-xl font-semibold text-black mt-2">Sports Training</h3>
-                <p className="text-black">Elevate your athletic performance with customized training programs.</p>
+                <span className="lucide--dumbbell" style={{ color: 'var(--color-green)' }}></span>
+                <h3 className="text-xl font-semibold text-white mt-4">Sports Training</h3>
+                <p className="text-gray-400 mt-2">Elevate your athletic performance with customized training programs.</p>
               </div>
               <div className="service-box">
-                {/* --- Using user-provided icon class --- */}
                 <span className="solar--heart-pulse-broken"></span>
-                <h3 className="text-xl font-semibold text-black mt-2">Weight Loss & Nutrition</h3>
-                <p className="text-black">Achieve your weight loss goals with expert guidance and personalized plans.</p>
+                <h3 className="text-xl font-semibold text-white mt-4">Weight Loss & Nutrition</h3>
+                <p className="text-gray-400 mt-2">Achieve your weight loss goals with expert guidance and personalized plans.</p>
               </div>
               <div className="service-box">
                 <span className="hugeicons--body-part-muscle"></span>
-                <h3 className="text-xl font-semibold text-black mt-2">Strength & Muscle Development</h3>
-                <p className="text-black">Build and maintain strength and muscle with targeted workouts designed for you.</p>
+                <h3 className="text-xl font-semibold text-white mt-4">Strength & Muscle</h3>
+                <p className="text-gray-400 mt-2">Build and maintain strength with targeted workouts designed for you.</p>
               </div>
             </div>
           </div>
@@ -447,30 +433,30 @@
       const toggleResearch = () => setIsResearchVisible(!isResearchVisible);
 
       return (
-        <section className="section-padding">
-          <div className="senior-fitness text-center">
+        <section id="senior-fitness" className="section-padding fade-in-section">
+          <div className="text-center max-w-4xl mx-auto">
             <div className="mb-4 flex justify-center">
-              <span className="ion--checkmark-done"></span>
+              <span className="ion--checkmark-done" style={{width: '64px', height: '64px'}}></span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: 'var(--color-green)' }}>Specializing in Senior Fitness</h2>
-            <p className="text-lg mb-6">Dedicated Personalized Programs Designed Specifically for Maintaining Active Aging, Quality of Life and Independence</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              <div className="benefit-card">Maintain muscle mass</div>
-              <div className="benefit-card">Improve mobility</div>
-              <div className="benefit-card">Enhance balance</div>
-              <div className="benefit-card">Relieve arthritic pain</div>
-              <div className="benefit-card">Increase bone density</div>
-              <div className="benefit-card">Boost cardiovascular health</div>
-              <div className="benefit-card">Improve sleep quality</div>
-              <div className="benefit-card">Maintain mental clarity</div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 green-text">Specializing in Senior Fitness</h2>
+            <p className="text-lg mb-8">Dedicated programs for active aging, quality of life, and independence.</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="benefit-card" onClick={toggleResearch}>Maintain muscle mass</div>
+              <div className="benefit-card" onClick={toggleResearch}>Improve mobility</div>
+              <div className="benefit-card" onClick={toggleResearch}>Enhance balance</div>
+              <div className="benefit-card" onClick={toggleResearch}>Improve arthritic pain</div>
+              <div className="benefit-card" onClick={toggleResearch}>Improve bone density</div>
+              <div className="benefit-card" onClick={toggleResearch}>Boost cardio response</div>
+              <div className="benefit-card" onClick={toggleResearch}>Improve sleep quality</div>
+              <div className="benefit-card" onClick={toggleResearch}>Maintain mental clarity</div>
             </div>
-            <p className="mt-6">
-              <a href="#" onClick={(e) => { e.preventDefault(); toggleResearch(); }} style={{ fontStyle: 'italic', color: 'var(--color-yellow)', textDecoration: 'underline' }}>
+            <p className="mt-8">
+              <a href="#" onClick={(e) => { e.preventDefault(); toggleResearch(); }} className="italic yellow-text underline">
                 *Weight-Training Research Studies
               </a>
             </p>
             <div className={`research-content ${isResearchVisible ? 'active' : ''}`}>
-              <p className="font-bold text-lg mb-2">WEIGHT TRAINING: A POWERFUL TOOL FOR HEALTHY AGING</p>
+              <p className="font-bold text-lg mb-2" style={{color: '#60a5fa'}}>WEIGHT TRAINING: A POWERFUL TOOL FOR HEALTHY AGING</p>
               <ul className="list-disc list-inside space-y-3">
                 <li><strong>Combats Muscle Loss & Boosts Metabolism:</strong> Research by <strong>Harvard Medical School</strong> shows strength training is vital for keeping muscles strong and boosting metabolism, which naturally slows with age. It effectively fights sarcopenia (age-related muscle loss), leading to significant gains in muscle mass and strength.</li>
                 <li><strong>Improves Balance & Reduces Fall Risk:</strong> Enhanced muscle strength directly improves balance and neuromuscular function. This significantly cuts the risk of falls, which are a major cause of injury and disability among seniors.</li>
@@ -485,15 +471,15 @@
               <p><small>Sherrington, C., et al. (2019). Exercise for preventing falls in older people living in the community. Cochrane Database of Systematic Reviews, (1).</small></p>
               <p><small>Ziegler, G. (2025). Cognitive benefits of resistance training in older adults. GeroScience.</small></p>
             </div>
-            <div className="training-boxes">
+            <div className="flex flex-col md:flex-row gap-8 mt-10">
               <div className="training-box">
                 <span className="hugeicons--gymnastic-rings"></span>
-                <p className="mt-2"><strong>In-Gym Training in Huntington Bch</strong></p>
+                <p className="mt-2"><strong className="yellow-text">In-Gym Training in Huntington Bch CA</strong></p>
                 <p>State-of-the-art equipment in a clean, professional environment.</p>
               </div>
               <div className="training-box">
                 <span className="ph--house-line"></span>
-                <p className="mt-2"><strong>In-Home Training</strong></p>
+                <p className="mt-2"><strong className="yellow-text">In-Home Training</strong></p>
                 <p>Convenient sessions in the comfort and privacy of your own home.</p>
               </div>
             </div>
@@ -503,39 +489,27 @@
     }
 
     function MeetRob() {
-      // NOTE: For these images to load, they must be in the same directory as the HTML file,
-      // or the path needs to be updated to their correct location.
-      const images = [
-        './Pic1.jpg', './Pic2.jpg', './Pic3.jpg', './Pic4.jpg', './Pic5.jpg'
-      ];
+      const images = ['./Pic1.jpg', './Pic2.jpg', './Pic3.jpg', './Pic4.jpg', './Pic5.jpg'];
       const [activeIndex, setActiveIndex] = React.useState(0);
 
       React.useEffect(() => {
         const interval = setInterval(() => {
           setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 10000);
+        }, 5000); // Faster rotation
         return () => clearInterval(interval);
       }, [images.length]);
-
-      const handleDotClick = (index) => setActiveIndex(index);
       
-      const getCurrentSet = () => {
-        const set = [];
-        for (let i = 0; i < 4; i++) {
-          set.push(images[(activeIndex + i) % images.length]);
-        }
-        return set;
-      };
+      const getCurrentSet = () => images.slice(0, 4).map((img, i) => images[(activeIndex + i) % images.length]);
 
       return (
-        <section id="about" className="section-padding bg-gray-900">
+        <section id="about" className="section-padding bg-gray-900 fade-in-section">
           <div className="container mx-auto">
             <div className="meet-container">
               <div className="meet-content text-center">
                 <h2 className="text-3xl md:text-4xl font-bold mb-2">
-                  <span className="text-white">Meet</span> <span style={{ color: 'var(--color-green)' }}>Rob Falcone</span>
+                  <span className="text-white">Meet</span> <span className="green-text">Rob Falcone</span>
                 </h2>
-                <p className="text-lg mb-6">Your dedicated partner in achieving optimal health and fitness</p>
+                <p className="text-lg mb-6 text-gray-400">Your dedicated partner in health and fitness.</p>
                 <div className="photo-carousel">
                   <div className="photo-grid">
                     {getCurrentSet().map((image, idx) => (
@@ -543,47 +517,26 @@
                         key={idx}
                         src={image}
                         alt={`Rob Falcone ${idx + 1}`}
-                        onError={(e) => { e.target.src = 'https://placehold.co/400x400/333333/555555?text=Image+Not+Found'; console.error(`Image failed to load: ${image}`); }}
+                        onError={(e) => { e.target.src = 'https://placehold.co/400x400/1f2937/4b5563?text=Image'; }}
                       />
                     ))}
                   </div>
                 </div>
-                <div className="photo-carousel-dots">
-                  {images.map((_, index) => (
-                    <span
-                      key={index}
-                      className={`photo-carousel-dot ${index === activeIndex ? 'active' : ''}`}
-                      onClick={() => handleDotClick(index)}
-                    ></span>
-                  ))}
-                </div>
               </div>
               <div className="professional-background">
                 <h3 className="text-xl font-bold green-text mb-2">Professional Background</h3>
-                <p>
-                  With over 20 years of experience in personal training, Rob Falcone brings a unique combination of athletic excellence and coaching expertise. Having competed in all major sports and mixed martial arts, Rob understands what it takes to motivate and push limits to achieve peak performance.<br /><br />Rob's passion lies in helping seniors maintain their independence through fitness. He specializes in creating safe, effective programs that address the unique challenges of aging while building strength, improving mobility, and enhancing quality of life.
+                <p className="text-gray-300">
+                  With over 20 years of experience, Rob Falcone brings a unique combination of athletic excellence and coaching expertise. Having competed in all major sports and mixed martial arts, Rob understands what it takes to achieve peak performance.<br /><br />Rob's passion lies in helping seniors maintain their independence through fitness. He specializes in creating safe, effective programs that address the unique challenges of aging.
                 </p>
-                <div className="credentials-box mt-4">
+                <div className="credentials-box mt-4 border-gray-600">
                   <p className="font-bold green-text">Certifications & Credentials</p>
-                  <p>ISSA-CPT, NASM-CPT, Exercise Science Fitness Specialist</p>
+                  <p className="text-gray-300">ISSA-CPT, NASM-CPT, Exercise Science Fitness Specialist</p>
                 </div>
-                <div className="credentials-grid">
-                  <div className="credential-card">
-                    <span className="mdi--award" style={{ color: 'var(--color-green)' }}></span>
-                    <p className="font-bold mt-1">20+ Years Experience</p>
-                  </div>
-                  <div className="credential-card">
-                    <span className="streamline-ultimate--award-medal-4"></span>
-                    <p className="font-bold mt-1">MMA Competitor</p>
-                  </div>
-                  <div className="credential-card">
-                    <span className="ph--target" style={{ color: 'var(--color-green)' }}></span>
-                    <p className="font-bold mt-1">Senior Fitness Expert</p>
-                  </div>
-                  <div className="credential-card">
-                    <span className="ion--checkmark-done"></span>
-                    <p className="font-bold mt-1">Proven Results</p>
-                  </div>
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="credential-card"><span className="mdi--award" style={{ color: 'var(--color-green)' }}></span><p className="font-bold mt-1">20+ Years Experience</p></div>
+                  <div className="credential-card"><span className="streamline-ultimate--award-medal-4"></span><p className="font-bold mt-1">MMA Competitor</p></div>
+                  <div className="credential-card"><span className="ph--target" style={{ color: 'var(--color-green)' }}></span><p className="font-bold mt-1">Senior Fitness Expert</p></div>
+                  <div className="credential-card"><span className="ion--checkmark-done"></span><p className="font-bold mt-1">Proven Results</p></div>
                 </div>
               </div>
             </div>
@@ -592,47 +545,98 @@
       );
     }
 
+    function Philosophy() {
+        return (
+            <section id="philosophy" className="section-padding fade-in-section">
+                <div className="container mx-auto text-center max-w-3xl">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 green-text">My Philosophy</h2>
+                    <p className="text-lg text-gray-300">
+                        My training philosophy is simple... I'm motivated to help my clients achieve and maintain their goals with customized, safe and effective routines. We focus on long-term and sustainable health.
+                    </p>
+                </div>
+            </section>
+        );
+    }
+
+    function FAQ() {
+        const [activeIndex, setActiveIndex] = React.useState(null);
+
+        const toggleFAQ = (index) => {
+            setActiveIndex(activeIndex === index ? null : index);
+        };
+
+        const faqs = [
+            { q: "How long are the training sessions?", a: "Each session is typically 60 minutes long, including a warm-up and cool-down period." },
+            { q: "What equipment do I need for in-home training?", a: "I bring all the necessary equipment with me. All you need is a small, clear space to work out in." },
+            { q: "What is your cancellation policy?", a: "I have a 24-hour cancellation policy. If you need to cancel or reschedule, please let me know at least 24 hours in advance to avoid being charged for the session." },
+            { q: "Do you offer package deals?", a: "Yes, I offer packages of 10, 20, and 30 sessions at a discounted rate. Contact me for more details." }
+        ];
+
+        return (
+            <section id="faq" className="section-padding bg-gray-900 fade-in-section">
+                <div className="container mx-auto max-w-3xl">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 green-text">Frequently Asked Questions</h2>
+                    <div className="faq-container">
+                        {faqs.map((faq, index) => (
+                            <div key={index} className={`faq-item ${activeIndex === index ? 'active' : ''}`}>
+                                <div className="faq-question" onClick={() => toggleFAQ(index)}>
+                                    <span>{faq.q}</span>
+                                    <span>{activeIndex === index ? '-' : '+'}</span>
+                                </div>
+                                <div className="faq-answer">
+                                    <p>{faq.a}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+    }
+
     function Testimonials() {
       const testimonials = [
-        { name: "Tom Nehrlich, Level 70", text: "Been training with Rob 10+ years. I turned 60, was out of shape and knew I needed to maintain my strength. Rob gained my respect with his body knowledge. As aches/pains/strains have come up, he's known exactly what to do and modifies our routine to strengthen/rehabilitate the area. I'm now Level 70 and in better shape than ever - w/compliments from my doctor." },
-        { name: "Sarah Martin, Level 45", text: "After struggling with weight loss for years, Rob created a personalized program that finally worked. His nutrition guidance and training approach helped me lose 35 pounds and gain confidence I never had before. Rob's knowledge of sports training also helped me get back into tennis after a 10-year break!" },
-        { name: "Michael Ramirez, Level 28", text: "As a former college athlete looking to get back in shape, Rob understood exactly what I needed. His sports training background and MMA experience brought intensity and variety to every workout. I've gained 15 pounds of muscle and improved my performance in every sport I play." },
-        { name: "Dorothy Kressel, Level 68", text: "I was worried about balance issues and losing independence as I aged. Rob's senior fitness program has been life-changing. My balance has improved dramatically, my arthritis pain is manageable, and I have energy I haven't felt in years. My doctor is amazed at my bone density improvements!" },
-        { name: "James Lippert, Level 35", text: "Rob's in-home training was perfect for my busy schedule. He brings all the equipment and expertise right to my house. The convenience combined with his professional approach has helped me stay consistent with fitness for the first time in my adult life." }
+        { name: "Tom N., Level 70", text: "I've been training with Rob for over 10 years. I had turned 60 and knew I needed to do something to maintain my strength and muscle tone. I was very out of shape. Rob and I hit it off right away. He immediately gained my respect with his knowledge of the body. As aches or pains or strains have come up, he's known exactly what to do and we'd modify our routine to strengthen and rehabilitate the area.  Now Level 70 and in better shape than ever - my doctor complements me on." },
+        { name: "Suzie Martin, Level 46", text: "After struggling with weight loss for years, Rob created a personalized program that finally worked... helped me lose 35 pounds and feel so much better." },
+        { name: "Mitch Ramirez, Level 28", text: "As a former college athlete,  Rob understood exactly what I needed. I've gained 15+ pounds of muscle and improved my performance." },
+        { name: "Lisa Kressel, Level 68", text: "Rob's senior fitness program has been life-changing. My strength and balance has improved dramatically." },
+        { name: "James L., Level 35", text: "Rob's in-home training was perfect for my busy schedule... helped me stay consistent with fitness for the first time in my adult life." },
+        { name: "Rob C., Level 64", text: "Never worked out much in my life, but I knew if I wanted to stay active, I'd need to do something. Met Rob and after the first session, I knew he was the guy for me. It's been 3 years and I've improved in many ways-- thanks to Rob." },
+        { name: "Nick C., Level 17", text: "Rob, helped me prep for football season - the best, knows his s***" },
+        { name: "Josh W., Level 24", text: "As a competitor, Rob knows his MMA. Improved my form and stamina." },
+        { name: "Bob Walker, Level 67", text: "Thanks to Rob, I'm in better shape now than ever." },
       ];
       const [activeIndex, setActiveIndex] = React.useState(0);
 
       React.useEffect(() => {
         const interval = setInterval(() => {
           setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-        }, 12000);
+        }, 8000);
         return () => clearInterval(interval);
       }, [testimonials.length]);
 
-      const handleDotClick = (index) => setActiveIndex(index);
-
       return (
-        <section id="testimonials" className="section-padding" style={{ backgroundColor: '#e0e0e0' }}>
+        <section id="testimonials" className="section-padding fade-in-section">
           <div className="container mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#000000' }}>Client Success Stories</h2>
-            <p className="text-lg text-center mb-6 italic" style={{ color: '#333' }}>Real transformations from real people.</p>
-            <div className="testimonial-carousel">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 green-text">Client Success Stories</h2>
+            <p className="text-lg text-center mb-10 italic text-gray-400">Real transformations from real people.</p>
+            <div className="testimonial-carousel max-w-3xl mx-auto">
               {testimonials.map((testimonial, index) => (
                 <div key={index} className={`testimonial-carousel-slide ${index === activeIndex ? 'active' : ''}`}>
                   <div className="testimonial-card">
-                    <div className="star-rating">⭐⭐⭐⭐⭐</div>
-                    <p className="italic text-base md:text-lg break-words">"{testimonial.text}"</p>
+                    <div className="star-rating">★★★★★</div>
+                    <p className="italic text-base md:text-lg text-gray-300">"{testimonial.text}"</p>
                     <p className="mt-4 font-semibold green-text text-right">{testimonial.name}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="carousel-dots">
+            <div className="carousel-dots text-center mt-8">
               {testimonials.map((_, index) => (
                 <span
                   key={index}
                   className={`carousel-dot ${index === activeIndex ? 'active' : ''}`}
-                  onClick={() => handleDotClick(index)}
+                  onClick={() => setActiveIndex(index)}
                 ></span>
               ))}
             </div>
@@ -643,14 +647,15 @@
 
     function Contact() {
       return (
-        <section id="contact" className="bg-gray-900">
+        <section id="contact" className="bg-gray-900 fade-in-section">
           <div className="container mx-auto">
             <div className="contact-container">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center" style={{ color: 'var(--color-green)' }}>
-                Schedule Your <span style={{ color: 'var(--color-yellow)' }}>FREE</span><br />Introductory Session Now!
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center green-text">
+                Schedule Your<br/><span className="yellow-text">FREE</span><br />Introductory Session!
               </h2>
               <p className="text-lg mb-4 text-white"><strong>Email: <a href="mailto:rob.falcone18@gmail.com" className="green-text hover:underline">rob.falcone18@gmail.com</a></strong></p>
-              <p className="text-lg mb-4 text-white"><strong>Text: <a href="tel:+17143163228" className="green-text hover:underline">(714) 316-3228</a></strong></p>
+              <p className="text-lg mb-6 text-white"><strong>Text: <a href="tel:+17143163228" className="green-text hover:underline">(714) 316-3228</a></strong></p>
+              <a href="mailto:rob.falcone18@gmail.com" className="cta-button">Email Rob Now</a>
             </div>
           </div>
         </section>
@@ -659,34 +664,33 @@
 
     function Footer() {
       return (
-        <footer className="bg-black py-6" style={{ borderTop: '2px solid var(--color-yellow)' }}>
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left text-sm">
+        <footer className="bg-black py-8" style={{ borderTop: '1px solid var(--color-yellow)' }}>
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left text-sm text-gray-400">
             <div>
-              <h3 className="text-lg font-bold green-text">Contact</h3>
-              <p><a href="tel:+17143163228" className="text-white hover:underline">(714) 316-3228</a></p>
-              <p><a href="mailto:rob.falcone18@gmail.com" className="text-white hover:underline">rob.falcone18@gmail.com</a></p>
+              <h3 className="text-lg font-bold green-text mb-2">Contact</h3>
+              <p><a href="tel:+17143163228" className="hover:underline">(714) 316-3228</a></p>
+              <p><a href="mailto:rob.falcone18@gmail.com" className="hover:underline">rob.falcone18@gmail.com</a></p>
             </div>
             <div>
-              <h3 className="text-lg font-bold green-text">Services</h3>
-              <ul className="list-none text-white space-y-1">
+              <h3 className="text-lg font-bold green-text mb-2">Services</h3>
+              <ul className="space-y-1">
                 <li>Strength & Conditioning</li>
                 <li>Sports Training</li>
-                <li>Weight Management</li>
-                <li>Senior Fitness - Active Aging</li>
+                <li>Senior Fitness</li>
                 <li>Nutrition Coaching</li>
               </ul>
             </div>
             <div>
-              <h3 className="text-lg font-bold green-text">Training Hours</h3>
-              <ul className="list-none text-white space-y-1">
+              <h3 className="text-lg font-bold green-text mb-2">Training Hours</h3>
+              <ul className="space-y-1">
                 <li>Mon-Sat: 4:30 AM - 7:30 PM</li>
                 <li>Other Times By Appointment</li>
               </ul>
             </div>
             <div>
-              <h3 className="text-lg font-bold green-text">Locations</h3>
-              <ul className="list-none text-white space-y-1">
-                <li>In-Gym Huntington Bch</li>
+              <h3 className="text-lg font-bold green-text mb-2">Locations</h3>
+              <ul className="space-y-1">
+                <li>In-Gym Huntington Bch CA</li>
                 <li>In-Home Training</li>
               </ul>
             </div>
@@ -696,6 +700,21 @@
     }
 
     function App() {
+        React.useEffect(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            const sections = document.querySelectorAll('.fade-in-section');
+            sections.forEach(section => observer.observe(section));
+
+            return () => sections.forEach(section => observer.unobserve(section));
+        }, []);
+
       return (
         <div>
           <Nav />
@@ -703,6 +722,8 @@
           <Services />
           <SeniorFitness />
           <MeetRob />
+          <Philosophy />
+          <FAQ />
           <Testimonials />
           <Contact />
           <Footer />
@@ -711,18 +732,8 @@
     }
 
     const container = document.getElementById('root');
-    if (typeof React === 'undefined' || typeof ReactDOM === 'undefined' || typeof Babel === 'undefined') {
-      console.error("One or more JavaScript libraries failed to load. Check network tab (F12).");
-      container.innerHTML = '<div class="error-message">JavaScript libraries failed to load. Check your internet connection or browser settings.</div>';
-    } else {
-      try {
-        const root = ReactDOM.createRoot(container);
-        root.render(<App />);
-      } catch (error) {
-        console.error("React rendering error:", error);
-        container.innerHTML = `<div class="error-message">Error rendering the website. Check the console (F12) for details: ${error.message}</div>`;
-      }
-    }
+    const root = ReactDOM.createRoot(container);
+    root.render(<App />);
   </script>
 </body>
 </html>
