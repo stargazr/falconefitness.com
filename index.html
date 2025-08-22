@@ -8,7 +8,6 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.24.0/babel.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- NEW: Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -59,7 +58,7 @@
     }
     .nav-links a {
       color: #e5e7eb;
-      padding: 0.75rem 0;
+      padding: 0.5rem 0;
       text-decoration: none;
       font-size: 1rem;
       font-weight: 600;
@@ -78,19 +77,35 @@
       color: #e5e7eb;
       font-size: 1.75rem;
     }
+    
+    /* --- AMENDED DESKTOP NAVIGATION STYLES --- */
     @media (min-width: 769px) {
-      .nav-bar { flex-direction: row; }
+      .nav-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        /* ADJUSTED: Increased horizontal padding for more space */
+        padding: 1rem 3rem;
+      }
+      /* ADDED: This rule fixes the clipping by resetting the width of the logo's container */
+      .nav-bar > div:first-of-type {
+        width: auto;
+      }
       .nav-links {
         display: flex;
         flex-direction: row;
+        align-items: center; /* Vertically align items */
         width: auto;
         max-height: none;
+        flex-wrap: nowrap;
+        margin-left: 2rem;
       }
       .nav-links a {
-        margin-left: 2rem;
+        /* ADJUSTED: Reduced margin for slightly tighter link spacing */
+        margin-left: 1.75rem;
         padding: 0;
         border-top: none;
       }
+      .nav-links a:first-child { margin-left: 0; }
       .menu-toggle { display: none; }
     }
     
@@ -121,6 +136,17 @@
       margin-bottom: 1rem;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
       border-left: 4px solid var(--color-green);
+      position: relative;
+      text-align: center;
+    }
+    /* NEW: Testimonial profile picture */
+    .testimonial-pfp {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--color-green);
+        margin: 0 auto 1rem; /* Centers the image and adds space below */
     }
     .photo-grid {
       display: grid;
@@ -129,6 +155,10 @@
       padding: 10px;
       background-color: #1f2937;
       border-radius: 10px;
+      /* ADDED: Constrain width and center the grid to make images smaller */
+      max-width: 380px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .photo-grid img {
       width: 100%;
@@ -234,7 +264,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 44px 12px rgba(0, 0, 0, 0.3);
       border: 1px solid #374151;
       transition: transform 0.3s, border-color 0.3s;
     }
@@ -263,6 +293,10 @@
       color: #111827;
       transform: scale(1.05) translateY(-3px);
       box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+    }
+    /* NEW: Nav button hover effect */
+    .nav-links a.green-text:hover {
+      color: var(--color-yellow);
     }
 
     /* --- Full-Screen Contact Section --- */
@@ -320,11 +354,69 @@
         scroll-margin-top: 80px;
     }
 
+    /* --- CORRECTED: Testimonial carousel styles --- */
+    .testimonial-container-outer {
+      position: relative;
+      padding: 0 3rem; /* Add padding for arrows */
+    }
+    .testimonial-carousel-inner {
+      min-height: 420px; /* MODIFIED: Increased height to prevent clipping */
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-carousel-slide {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      display: block;
+    }
+    .testimonial-carousel-slide.active {
+      opacity: 1;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(55, 65, 81, 0.7);
+      color: white;
+      border: none;
+      padding: 1rem 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 10;
+      border-radius: 0.5rem;
+      transition: background-color 0.3s;
+    }
+    .carousel-arrow:hover {
+      background-color: rgba(52, 211, 153, 0.9);
+    }
+    .carousel-arrow.left { left: 0.5rem; }
+    .carousel-arrow.right { right: 0.5rem; }
+
+    /* NEW: More visible Gradient Background */
+    .bg-gradient-gray {
+      background: linear-gradient(180deg, #111827 0%, #2c384e 100%);
+    }
+
+    .blog-item {
+      background-color: #1f2937;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #374151;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .blog-item:hover {
+      transform: translateY(-5px);
+      border-color: var(--color-yellow);
+    }
 
     /* --- SVG Icon Classes (Reverted to Original) --- */
     .ph--house-line { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%2334d399' d='M240 208h-16v-72l2.34 2.34a8 8 0 0 0 11.32-11.31L139.31 28.69a16 16 0 0 0-22.62 0L18.34 127a8 8 0 0 0 11.32 11.31L32 136v72H16a8 8 0 0 0 0 16h224a8 8 0 0 0 0-16M48 120l80-80l80 80v88h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48Zm96 88h-32v-48h32Z'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
     .hugeicons--gymnastic-rings { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%2334d399' stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M16.5 22a5.5 5.5 0 1 0 0-11a5.5 5.5 0 0 0 0 11m0-11V2M12 9.303A5.51 5.51 0 0 0 7.513 7A5.507 5.507 0 0 0 2 12.5c0 3.244 2.928 5.829 6.14 5.466M7.5 7V2'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
-    .hugeicons--body-part-muscle { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%2334d399' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M2.017 20.305c1.13 1.614 6.042 2.882 8.362-.14c2.51 1.2 6.65.828 10.02-1.052c.468-.261.912-.591 1.183-1.054c.613-1.045.628-2.495-.49-4.634c-1.865-4.655-5.218-8.74-6.572-10.383c-.278-.254-2.052-.614-3.133-.96c-.478-.147-1.367-.246-2.431 1.156c-.505.665-2.796 2.297.111 3.395c.45.115.782.326 2.836-.05c.268-.046.936 0 1.407.827l.983 1.406a.96.96 0 0 1 .17.44c.172 1.5.166 3.376 1.002 4.326c-1.291-.933-4.664-2.042-7.206 1.113M2.001 12.94a6.714 6.714 0 0 1 8.416-.419'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
+    .hugeicons--body-part-muscle { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%2334d399' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M2.017 20.305c1.13 1.614 6.042 2.882 8.362-.14c2.51 1.2 6.65.828 10.02-1.052c.468-.261.912-.591 1.183-1.054c.613-1.045.628-2.495-.49-4.634c-1.865-4.655-5.218-8.74-6.572-10.383c-.278-.254-2.052-.614-3.133-.96c-.478-.147-1.367-.246-2.431 1.156c-.505.665-2.796 2.297.111 3.395c.45.115.782.326 2.836-.05c.268-.046.936 0 1.407.827l.983 1.406a.96.96 0 0 1 .17.44c.172 1.5.166 3.376 1.002 4.326c-1.291-.933-4.664-2.042-7.206 1.113M2.001 12.94a6.714 6.714 0 0 1 8.416-.419'/%3E%3C/g%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
     .streamline-ultimate--award-medal-4 { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%2334d399' stroke-width='1.2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M16.706 17.25a2.4 2.4 0 0 0-2.353-4.075a2.4 2.4 0 0 0-4.7 0A2.4 2.4 0 0 0 7.3 17.25a2.4 2.4 0 0 0 2.353 4.075a2.4 2.4 0 0 0 4.705 0a2.4 2.4 0 0 0 2.353-4.075z'/%3E%3Cpath d='M12 17.625a.375.375 0 0 1 0-.75m0 .75a.375.375 0 0 0 0-.75'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m12.84 11.4l3.782-2.7a1.5 1.5 0 0 0 .628-1.221V2.25a1.5 1.5 0 0 0-1.5-1.5h-7.5a1.5 1.5 0 0 0-1.5 1.5v5.228A1.5 1.5 0 0 0 7.378 8.7l3.785 2.7M12 .75v10.5'/%3E%3C/g%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
     .ion--checkmark-done { display: inline-block; width: 32px; height: 32px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='none' stroke='%2334d399' stroke-linecap='round' stroke-linejoin='round' stroke-width='32' d='M464 128L240 384l-96-96m0 96l-96-96m320-160L232 284'/%3E%3C/svg%3E") no-repeat; background-size: 100% 100%; }
     .solar--heart-pulse-broken { display: inline-block; width: 32px; height: 32px; background-repeat: no-repeat; background-size: 100% 100%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath stroke='%2334d399' stroke-linecap='round' stroke-width='0.8' d='M18 12h-.801c-.83 0-1.245 0-1.589.195c-.344.194-.557.55-.984 1.261l-.03.052c-.398.663-.597.994-.886.989s-.476-.344-.849-1.022l-1.687-3.067c-.347-.632-.52-.948-.798-.963c-.277-.015-.484.28-.897.87l-.283.405c-.44.627-.659.94-.984 1.11c-.326.17-.709.17-1.474.17H6'/%3E%3Cpath fill='%2334d399' d='m8.962 18.91l.464-.588zM12 5.5l-.54.52a.75.75 0 0 0 1.08 0zm3.038 13.41l.465.59zM12 20.487v-.75zm-9.343-7.09a.75.75 0 0 0 1.273-.792zm3.873 2.376a.75.75 0 0 0-1.06 1.062zM2.75 9.137c0-2.803 1.257-4.542 2.83-5.14c1.575-.6 3.771-.167 5.88 2.024l1.08-1.04C10.15 2.496 7.345 1.72 5.046 2.595C2.743 3.471 1.25 5.888 1.25 9.137zM15.503 19.5c1.492-1.177 3.28-2.754 4.703-4.516c1.407-1.743 2.544-3.775 2.544-5.847h-1.5c0 1.551-.872 3.246-2.211 4.905c-1.323 1.639-3.015 3.137-4.465 4.28zM22.75 9.137c0-3.25-1.493-5.666-3.796-6.542c-2.299-.874-5.103-.1-7.494 2.386l1.08 1.04c2.109-2.19 4.305-2.623 5.88-2.024c1.573.598 2.83 2.337 2.83 5.14zM8.497 19.5c1.275 1.004 2.153 1.736 3.503 1.736v-1.5c-.73 0-1.184-.319-2.574-1.414zm6.077-1.178c-1.39 1.095-1.843 1.414-2.574 1.414v1.5c1.35 0 2.228-.732 3.503-1.736zM3.93 12.604c-.746-1.199-1.18-2.373-1.18-3.467h-1.5c0 1.48.58 2.932 1.407 4.26zm5.496 5.718a34 34 0 0 1-2.896-2.55l-1.06 1.062A35 35 0 0 0 8.497 19.5z'/%3E%3C/g%3E%3C/svg%3E"); }
@@ -365,9 +457,9 @@
           <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
             <a href="#services" onClick={toggleMenu}>Services</a>
             <a href="#about" onClick={toggleMenu}>Meet Rob</a>
-            <a href="#philosophy" onClick={toggleMenu}>Philosophy</a>
             <a href="#faq" onClick={toggleMenu}>FAQ</a>
             <a href="#testimonials" onClick={toggleMenu}>Reviews</a>
+            <a href="#blog" onClick={toggleMenu}>Blog</a>
             <a href="#contact" className="green-text" onClick={toggleMenu}>Book Now</a>
           </div>
         </nav>
@@ -380,9 +472,9 @@
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-900 to-transparent z-0"></div>
           <div className="container mx-auto text-center flex flex-col items-center relative z-10 px-6 py-20">
             <h1 className="text-4xl md:text-6xl font-bold">
-              <span className="green-text">Rob Falcone</span>
+              <span className="green-text">Your Fitness with Rob Falcone, PT</span>
               <br />
-              <span className="text-white text-3xl md:text-4xl block mt-2">Personal Training</span>
+              <span className="text-white text-3xl md:text-4xl block mt-2">Personalized. Powerful. Proven.</span>
             </h1>
              <p className="mt-6 text-2xl md:text-3xl yellow-text">
                 <i>"It's never too soon...<br/>but one day it will be too late."</i>
@@ -400,7 +492,7 @@
 
     function Services() {
       return (
-        <section id="services" className="section-padding bg-gray-900 fade-in-section">
+        <section id="services" className="section-padding bg-gradient-gray fade-in-section">
           <div className="container mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 green-text">
               Professional Training Services
@@ -474,7 +566,7 @@
             <div className="flex flex-col md:flex-row gap-8 mt-10">
               <div className="training-box">
                 <span className="hugeicons--gymnastic-rings"></span>
-                <p className="mt-2"><strong className="yellow-text">In-Gym Training in Huntington Bch CA</strong></p>
+                <p className="mt-2"><strong className="yellow-text">In-Gym Training in Huntington Beach</strong></p>
                 <p>State-of-the-art equipment in a clean, professional environment.</p>
               </div>
               <div className="training-box">
@@ -490,16 +582,9 @@
 
     function MeetRob() {
       const images = ['./Pic1.jpg', './Pic2.jpg', './Pic3.jpg', './Pic4.jpg', './Pic5.jpg'];
-      const [activeIndex, setActiveIndex] = React.useState(0);
-
-      React.useEffect(() => {
-        const interval = setInterval(() => {
-          setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 5000); // Faster rotation
-        return () => clearInterval(interval);
-      }, [images.length]);
       
-      const getCurrentSet = () => images.slice(0, 4).map((img, i) => images[(activeIndex + i) % images.length]);
+      // The grid will now show a static selection of the first 4 images
+      const getCurrentSet = () => images.slice(0, 4);
 
       return (
         <section id="about" className="section-padding bg-gray-900 fade-in-section">
@@ -528,6 +613,12 @@
                 <p className="text-gray-300">
                   With over 20 years of experience, Rob Falcone brings a unique combination of athletic excellence and coaching expertise. Having competed in all major sports and mixed martial arts, Rob understands what it takes to achieve peak performance.<br /><br />Rob's passion lies in helping seniors maintain their independence through fitness. He specializes in creating safe, effective programs that address the unique challenges of aging.
                 </p>
+                
+                <h3 className="text-xl font-bold green-text mb-2 mt-4">My Philosophy</h3>
+                 <p className="text-gray-300">
+                    My training philosophy is simple... I'm motivated to help my clients achieve and maintain their goals with customized, safe and effective routines. We'll focus on long-term and sustainable health goals, relationship building, accountability, motivation and injury prevention. 
+                </p>
+
                 <div className="credentials-box mt-4 border-gray-600">
                   <p className="font-bold green-text">Certifications & Credentials</p>
                   <p className="text-gray-300">ISSA-CPT, NASM-CPT, Exercise Science Fitness Specialist</p>
@@ -545,19 +636,6 @@
       );
     }
 
-    function Philosophy() {
-        return (
-            <section id="philosophy" className="section-padding fade-in-section">
-                <div className="container mx-auto text-center max-w-3xl">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 green-text">My Philosophy</h2>
-                    <p className="text-lg text-gray-300">
-                        My training philosophy is simple... I'm motivated to help my clients achieve and maintain their goals with customized, safe and effective routines. We focus on long-term and sustainable health.
-                    </p>
-                </div>
-            </section>
-        );
-    }
-
     function FAQ() {
         const [activeIndex, setActiveIndex] = React.useState(null);
 
@@ -566,14 +644,21 @@
         };
 
         const faqs = [
-            { q: "How long are the training sessions?", a: "Each session is typically 60 minutes long, including a warm-up and cool-down period." },
+            { q: "How long are the training sessions?", a: "Each session is typically 60 minutes long, including a warm-up and cool-down period. Each session involves personalized attention, relationship building, accountability, motivation and injury prevention." },
+            { q: "What is your training method or style?", a: "Each private session is tailored to your goals and your current condition. Specifically, I use functional, corrective, strength and conditioning exercises. In addition, I employ HIIT (High-Intensity Interval Training)." },
+            { q: "Describe the gym facilities", a: "The gym facility is 5000 sq. ft. with wall-to-wall equipment, free weights, functional equipment, massage table,  cardio machines plus an outdoor workout area. " },
+            { q: "What is HIIT?", a: "HIIT (High-Intensity Interval Training) can improve cardiovascular health, increase calorie burn, enhance endurance, and boost metabolism. " },
+            { q: "What is functional training?", a: "Functional Training is geared explicitly toward better function when performing everyday tasks like stair climbing, picking up and moving objects, bending and other everyday tasks." },
+            { q: "What are corrective exercises?", a: "Corrective exercises address and fix movement dysfunctions, imbalances and compensations in the body. These exercises improve mobility, stability and overall movement efficiency, leading to better posture, reduced pain, and decreased injury risk." },
+            { q: "What are the benefits of strength training exercises?", a: "Strength training exercises improve your strength, flexibility, posture and decrease your risk of injury." },
+            { q: "What are the benefits of weight training for Seniors?", a: "Weight training exercises are great for maintainng and improving strength, endurance, muscle mass, balance, flexibility and mental clarity." },
             { q: "What equipment do I need for in-home training?", a: "I bring all the necessary equipment with me. All you need is a small, clear space to work out in." },
             { q: "What is your cancellation policy?", a: "I have a 24-hour cancellation policy. If you need to cancel or reschedule, please let me know at least 24 hours in advance to avoid being charged for the session." },
             { q: "Do you offer package deals?", a: "Yes, I offer packages of 10, 20, and 30 sessions at a discounted rate. Contact me for more details." }
-        ];
+          ];
 
         return (
-            <section id="faq" className="section-padding bg-gray-900 fade-in-section">
+            <section id="faq" className="section-padding bg-gradient-gray fade-in-section">
                 <div className="container mx-auto max-w-3xl">
                     <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 green-text">Frequently Asked Questions</h2>
                     <div className="faq-container">
@@ -596,40 +681,47 @@
 
     function Testimonials() {
       const testimonials = [
-        { name: "Tom N., Level 70", text: "I've been training with Rob for over 10 years. I had turned 60 and knew I needed to do something to maintain my strength and muscle tone. I was very out of shape. Rob and I hit it off right away. He immediately gained my respect with his knowledge of the body. As aches or pains or strains have come up, he's known exactly what to do and we'd modify our routine to strengthen and rehabilitate the area.  Now Level 70 and in better shape than ever - my doctor complements me on." },
-        { name: "Suzie Martin, Level 46", text: "After struggling with weight loss for years, Rob created a personalized program that finally worked... helped me lose 35 pounds and feel so much better." },
-        { name: "Mitch Ramirez, Level 28", text: "As a former college athlete,  Rob understood exactly what I needed. I've gained 15+ pounds of muscle and improved my performance." },
-        { name: "Lisa Kressel, Level 68", text: "Rob's senior fitness program has been life-changing. My strength and balance has improved dramatically." },
-        { name: "James L., Level 35", text: "Rob's in-home training was perfect for my busy schedule... helped me stay consistent with fitness for the first time in my adult life." },
-        { name: "Rob C., Level 64", text: "Never worked out much in my life, but I knew if I wanted to stay active, I'd need to do something. Met Rob and after the first session, I knew he was the guy for me. It's been 3 years and I've improved in many ways-- thanks to Rob." },
-        { name: "Nick C., Level 17", text: "Rob, helped me prep for football season - the best, knows his s***" },
-        { name: "Josh W., Level 24", text: "As a competitor, Rob knows his MMA. Improved my form and stamina." },
-        { name: "Bob Walker, Level 67", text: "Thanks to Rob, I'm in better shape now than ever." },
+        { name: "Tom Nehrlich, Level 70, Huntington Beach", text: "Been training with Rob for 10+ years. I turned 60 and needed to do something to maintain my strength and muscle mass, I was very out of shape. Rob and I hit it off right away. He gained my respect with his knowledge of the body. As aches/pains/strains have come up, he's known exactly what to do and he'd modify my sessions to correct and rehabilitate the area.  I'm now 70, in better shape than ever - my doctor agrees.", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=TN" },
+        { name: "Suzie M., Level 46, Huntington Beach", text: "After struggling with weight loss for years, Rob created a personalized program that finally worked... helped me lose 35 pounds and feel so much better.", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=SM" },
+        { name: "Mitch Ramirez, Level 28, Fountain Valley", text: "As a former college athlete,  Rob understood exactly what I needed. I've gained 15+ pounds of muscle and improved my performance.", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=MR" },
+        { name: "Lisa Kressel, Level 68, Huntington Beach", text: "Rob's senior fitness program has been life-changing. My strength and balance has improved dramatically.", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=LK" },
+        { name: "James L., Level 35, Huntington Beach", text: "Rob's in-home training is perfect for my busy schedule... helps me stay accountable and consistent with fitness for the first time in my adult life.", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=JL" },
+        { name: "Rob C., Level 64, Seal Beach", text: "Never worked out much in my life, but I knew if I wanted to stay active, I'd need to do something. Met Rob and after the first session, I knew he was the guy for me. It's been 3 years and I've improved in many ways-- thanks to Rob.", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=RC" },
+        { name: "Kaleb C., Level 17, Huntington Beach", text: "Rob helped me prep for football season - the best, experienced, no BS", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=KC" },
+        { name: "Josh W., Level 24, Huntington Beach", text: "As a competitor, Rob knows his MMA. Improved my form and stamina.", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=JW" },
+        { name: "Bob Walker, Level 67, Seal Beach", text: "Thanks to Rob, I'm in better shape now than ever.", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=BW" },
+        { name: "Rob B., Level 44, Sunset Beach", text: "10+ years trainng with Rob. That says it all...", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=RB" },
       ];
       const [activeIndex, setActiveIndex] = React.useState(0);
 
-      React.useEffect(() => {
-        const interval = setInterval(() => {
-          setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-        }, 8000);
-        return () => clearInterval(interval);
-      }, [testimonials.length]);
+      const handleNext = () => {
+        setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+      };
+
+      const handlePrevious = () => {
+        setActiveIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+      };
 
       return (
         <section id="testimonials" className="section-padding fade-in-section">
           <div className="container mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 green-text">Client Success Stories</h2>
             <p className="text-lg text-center mb-10 italic text-gray-400">Real transformations from real people.</p>
-            <div className="testimonial-carousel max-w-3xl mx-auto">
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className={`testimonial-carousel-slide ${index === activeIndex ? 'active' : ''}`}>
-                  <div className="testimonial-card">
-                    <div className="star-rating">★★★★★</div>
-                    <p className="italic text-base md:text-lg text-gray-300">"{testimonial.text}"</p>
-                    <p className="mt-4 font-semibold green-text text-right">{testimonial.name}</p>
+            <div className="testimonial-container-outer max-w-3xl mx-auto">
+              <button className="carousel-arrow left" onClick={handlePrevious}>&#9664;</button>
+              <div className="testimonial-carousel-inner">
+                {testimonials.map((testimonial, index) => (
+                  <div key={index} className={`testimonial-carousel-slide ${index === activeIndex ? 'active' : ''}`}>
+                    <div className="testimonial-card">
+                      <img src={testimonial.img} alt={`Profile of ${testimonial.name}`} className="testimonial-pfp" />
+                      <div className="star-rating">★★★★★</div>
+                      <p className="italic text-base md:text-lg text-gray-300">"{testimonial.text}"</p>
+                      <p className="mt-4 font-semibold green-text text-right">{testimonial.name}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <button className="carousel-arrow right" onClick={handleNext}>&#9654;</button>
             </div>
             <div className="carousel-dots text-center mt-8">
               {testimonials.map((_, index) => (
@@ -638,6 +730,45 @@
                   className={`carousel-dot ${index === activeIndex ? 'active' : ''}`}
                   onClick={() => setActiveIndex(index)}
                 ></span>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Blog() {
+      const articles = [
+        { title: "How to Build a Workout Routine That Actually Works", link: "how-to-build-a-workout-routine.html" },
+        { title: "Strong at Any Age: The Benefits of Weight Training for Seniors", link: "strong-at-any-age.html" },
+        { title: "Stronger at Home: In-Home Training Benefits", link: "stronger-at-home.html" },
+        { title: "Top 5 Gym Mistakes Beginners Make", link: "top-5-gym-mistakes.html" },
+        { title: "Weight Training: A Powerful Tool for Healthy Aging", link: "weight-training-healthy-aging.html" },
+        { title: "Strength Training vs. Cardio: Which Is Better for Weight Loss?", link: "strength-training-vs-cardio.html" },
+        { title: "The Importance of Sleep for Weight Loss and Muscle Recovery", link: "importance-of-sleep.html" },
+        { title: "Why Consistency Is the Secret to Fat Loss and Muscle Gain", link: "why-consistency-is-secret.html" },
+        { title: "Beginner Weightlifting Guide: How to Start Lifting Safely", link: "beginner-weightlifting-guide.html" },
+        { title: "Fitness Mindset Shifts That Make Working Out Enjoyable", link: "fitness-mindset-shifts.html" },
+        { title: "Gym Anxiety Tips: How to Overcome Fear as a Beginner", link: "gym-anxiety-tips.html" },
+        { title: "Healthy Snack Ideas for Weight Loss That Keep You Full", link: "healthy-snack-ideas.html" },
+        { title: "HIIT Workouts for Fat Loss", link: "hiit-workouts.html" },
+        { title: "How Hydration Affects Your Fitness Performance", link: "hydration-and-fitness.html" },
+        { title: "How Much Protein Do You Need to Build Muscle?", link: "how-much-protein.html" },
+        { title: "How to Stay Motivated to Work Out When You're Not Seeing Results", link: "staying-motivated.html" },
+        { title: "Meal Prep Ideas for Weight Loss and Muscle Gain", link: "meal-prep-ideas.html" },
+      ];
+      return (
+        <section id="blog" className="section-padding bg-gradient-gray fade-in-section">
+          <div className="container mx-auto max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 yellow-text">From the Blog</h2>
+            <p className="text-lg text-center mb-10 text-gray-400">Insights and advice to help you on your fitness journey.</p>
+            <div className="space-y-6">
+              {articles.map((article, index) => (
+                <a href={article.link} key={index} className="block no-underline">
+                  <div className="blog-item">
+                    <h3 className="text-xl font-bold green-text">{article.title}</h3>
+                  </div>
+                </a>
               ))}
             </div>
           </div>
@@ -690,7 +821,7 @@
             <div>
               <h3 className="text-lg font-bold green-text mb-2">Locations</h3>
               <ul className="space-y-1">
-                <li>In-Gym Huntington Bch CA</li>
+                <li>In-Gym Huntington Beach</li>
                 <li>In-Home Training</li>
               </ul>
             </div>
@@ -722,9 +853,9 @@
           <Services />
           <SeniorFitness />
           <MeetRob />
-          <Philosophy />
           <FAQ />
           <Testimonials />
+          <Blog />
           <Contact />
           <Footer />
         </div>
