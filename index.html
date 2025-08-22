@@ -54,7 +54,7 @@
     }
     .nav-links.active {
       display: flex;
-      max-height: 220px;
+      max-height: 250px; /* MODIFIED: Increased height to fit all links */
     }
     .nav-links a {
       color: #e5e7eb;
@@ -182,9 +182,6 @@
         background-color: var(--color-green);
         transform: scale(1.2);
     }
-    
-    .testimonial-carousel-slide { display: none; }
-    .testimonial-carousel-slide.active { display: block; }
 
     .meet-container {
       display: flex;
@@ -359,11 +356,13 @@
       position: relative;
       padding: 0 3rem; /* Add padding for arrows */
     }
+    /* MODIFIED: Removed min-height for auto-sizing */
     .testimonial-carousel-inner {
-      min-height: 440px; /* MODIFIED: Further increased height to prevent clipping */
       position: relative;
-      overflow: hidden;
+      /* NEW: Added a transition for smooth height changes */
+      transition: height 0.5s ease-in-out;
     }
+    /* MODIFIED: Inactive slides are now hidden but occupy space when active */
     .testimonial-carousel-slide {
       position: absolute;
       width: 100%;
@@ -371,10 +370,13 @@
       left: 0;
       opacity: 0;
       transition: opacity 0.5s ease-in-out;
-      display: block;
+      pointer-events: none; /* Inactive slides are not clickable */
     }
+    /* MODIFIED: The active slide is now part of the document flow to set parent height */
     .testimonial-carousel-slide.active {
       opacity: 1;
+      position: relative;
+      pointer-events: auto;
     }
     .carousel-arrow {
       position: absolute;
@@ -395,7 +397,7 @@
     }
     .carousel-arrow.left { left: 0.5rem; }
     .carousel-arrow.right { right: 0.5rem; }
-
+    
     /* NEW: More visible Gradient Background */
     .bg-gradient-gray {
       background: linear-gradient(180deg, #111827 0%, #2c384e 100%);
@@ -693,6 +695,17 @@
         { name: "Rob B., Level 44, Sunset Beach", text: "10+ years trainng with Rob. That says it all...", img: "https://placehold.co/100x100/1f2937/e5e7eb?text=RB" },
       ];
       const [activeIndex, setActiveIndex] = React.useState(0);
+      const carouselInnerRef = React.useRef(null);
+
+      React.useEffect(() => {
+        if (carouselInnerRef.current) {
+          const activeSlide = carouselInnerRef.current.querySelector('.testimonial-carousel-slide.active');
+          if (activeSlide) {
+            carouselInnerRef.current.style.height = `${activeSlide.offsetHeight}px`;
+          }
+        }
+      }, [activeIndex, testimonials]);
+
 
       const handleNext = () => {
         setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
@@ -709,7 +722,7 @@
             <p className="text-lg text-center mb-10 italic text-gray-400">Real transformations from real people.</p>
             <div className="testimonial-container-outer max-w-3xl mx-auto">
               <button className="carousel-arrow left" onClick={handlePrevious}>&#9664;</button>
-              <div className="testimonial-carousel-inner">
+              <div className="testimonial-carousel-inner" ref={carouselInnerRef}>
                 {testimonials.map((testimonial, index) => (
                   <div key={index} className={`testimonial-carousel-slide ${index === activeIndex ? 'active' : ''}`}>
                     <div className="testimonial-card">
